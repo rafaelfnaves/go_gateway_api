@@ -33,5 +33,22 @@ func (h *AccountHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(output)
+}
+
+func (h *AccountHandler) Get(w http.ResponseWriter, r *http.Request) {
+	apiKey := r.Header.Get("X-API-Key")
+	if apiKey == "" {
+		http.Error(w, "X-API-Key header is missing", http.StatusUnauthorized)
+		return
+	}
+	output, err := h.accountservice.FindByAPIKey(apiKey)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(output)
 }

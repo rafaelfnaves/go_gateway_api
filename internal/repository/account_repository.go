@@ -47,7 +47,7 @@ func (r *AccountRepository) FindByAPIKey(api_key string) (*domain.Account, error
 	err := r.db.QueryRow(`
 		SELECT id, name, email, api_key, balance, created_at, updated_at
 		FROM accounts
-		WHERE apy_key = $1
+		WHERE api_key = $1
 	`, api_key).Scan(
 		&account.ID,
 		&account.Name,

@@ -3,14 +3,13 @@ package service
 import (
 	"github.com/rafaelfnaves/go-gateway-api/internal/domain"
 	"github.com/rafaelfnaves/go-gateway-api/internal/dto"
-	"github.com/rafaelfnaves/go-gateway-api/internal/repository"
 )
 
 type AccountService struct {
-	repository repository.AccountRepository
+	repository domain.AccountRepository
 }
 
-func NewAccountService(repository repository.AccountRepository) *AccountService {
+func NewAccountService(repository domain.AccountRepository) *AccountService {
 	return &AccountService{repository: repository}
 }
 
