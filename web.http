@@ -8,10 +8,48 @@ POST {{baseUrl}}/accounts
 Content-Type: application/json
 
 {
-  "name": "John Logan",
-  "email": "john@logan.com"
+  "name": "Junim Dutton",
+  "email": "dutton@junim.com"
 }
 
 ### Get account data
 GET {{baseUrl}}/accounts
 X-API-Key: {{apiKey}}
+
+### Create new invoice
+# @name createInvoice
+POST {{baseUrl}}/invoice
+Content-Type: application/json
+X-API-Key: {{apiKey}}
+
+{
+  "amount": 100.50,
+  "description": "Invoice for services rendered",
+  "payment_type": "credit_card",
+  "card_number": "4242424242424242",
+  "cvv": "123",
+  "expiry_month": 12,
+  "expiry_year": 2025,
+  "card_holder_name": "Junim Dutton"
+}
+
+### Get invoice data
+@invoiceID = {{createInvoice.response.body.id}}
+GET {{baseUrl}}/invoice/{{invoiceID}}
+X-API-Key: {{apiKey}}
+
+### Create invoice greater than 10000
+POST {{baseUrl}}/invoice
+Content-Type: application/json
+X-API-Key: {{apiKey}}
+
+{
+  "amount": 15000,
+  "description": "Invoice with amount greater than 10000",
+  "payment_type": "credit_card",
+  "card_number": "4242424242424242",
+  "cvv": "123",
+  "expiry_month": 12,
+  "expiry_year": 2025,
+  "card_holder_name": "Junim Dutton"
+}
